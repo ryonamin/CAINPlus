@@ -90,7 +90,7 @@ void CainWrapper::WriteEvent(Event& e)
 void CainWrapper::ReadCainOutput(Event& e)
 {
    TString path(_confDir);
-   path += "in_100.dat";
+   path += "in_1000.dat";
    _fcainot.open(path);
    std::string line;
    
