@@ -6,6 +6,11 @@ runinfolist = getRunInfoList()
 cmdstart="\"("
 cmdend=" )\""
 
+queue = "s"
+if conf.nEventPerSubmit > 100:
+	queue = "l"
+	
+
 for runinfo in runinfolist:
 	cmdlist = []
 	dirname = runinfo.getDirName()
@@ -19,8 +24,8 @@ for runinfo in runinfolist:
         			index = basename.split('_')[-1]
 				startNEvent = runinfo.startevts[startevt]
 				endNEvent = runinfo.startevts[startevt+1]
-				if endNEvent > conf.nTotalEvents:
-					endNEvent = conf.nTotalEvents
+				if endNEvent > conf.nTotalEvents + conf.startEvent:
+					endNEvent = conf.nTotalEvents + conf.startEvent
 				#print str(isub) + " " + str(endNEvent)
         	                cmd = "cain+ " + dirname + '/' + subdirname + '/' + afile + " " + str(startNEvent) + " " + str(endNEvent) 
 				#print cmd
@@ -39,7 +44,7 @@ for runinfo in runinfolist:
 			if len(cmdlist) > 0:
 				cmd = cmdlist.pop()
 	
-			cmd = "bsub -q l " + "-o " + dirname + "/submit_" + str(nsubmit) + ".log " + " -e " + dirname + "/submit_" + str(nsubmit) + ".err " + "-J " + basename + "_submit_" + str(nsubmit) + " " + cmdstart + cmd + cmdend
+			cmd = "bsub -q " + queue + " -o " + dirname + "/submit_" + str(nsubmit) + ".log " + " -e " + dirname + "/submit_" + str(nsubmit) + ".err " + "-J " + basename + "_submit_" + str(nsubmit) + " " + cmdstart + cmd + cmdend
 			cmdlog.write(cmd)
 			#print cmd
 	        	subprocess.call(cmd,shell=True)

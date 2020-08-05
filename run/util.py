@@ -41,7 +41,7 @@ class RunParameterSet():
 			runid += "_" + removeMetaCharacter(self.params[i]) + removeMetaCharacter(self.values[i]) 
 		return runid
 	def getDirName(self):
-		dirname = "Run" + self.getRunID()
+		dirname = conf.output_topdir + "/Run" + self.getRunID()
 		return dirname 
 
 def getRunInfoList():
@@ -53,9 +53,9 @@ def getRunInfoList():
 				newinfo.addParameterSet(scanparameter.param,value)
 				nsubmit = conf.nTotalEvents/conf.nEventPerSubmit + 1
 				for isub in range(nsubmit):
-					newinfo.addStartEvent(isub*conf.nEventPerSubmit)
+					newinfo.addStartEvent(isub*conf.nEventPerSubmit+conf.startEvent)
 				if conf.nTotalEvents > isub*conf.nEventPerSubmit:
-					newinfo.addStartEvent(conf.nTotalEvents) # last event
+					newinfo.addStartEvent(conf.nTotalEvents+conf.startEvent) # last event
 				runinfolist.append(newinfo)
 		else :
 			newruninfolist = []

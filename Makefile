@@ -28,4 +28,4 @@ Dict.o : ${INCS} LinkDef.h
 	g++ ${ROOTLIBS} ${CXXFLAGS} ${INCPATH} -c Dict.cxx
 
 clean :
-	rm Dict.cxx Dict.h *~ *.o *.pcm run
+	rm Dict.cxx Dict.h *~ *.o *.pcm 

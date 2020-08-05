@@ -3,7 +3,6 @@ import os,re,shutil,conf,util
 from util import * 
 
 
-
 # Define functions
 
 
@@ -107,10 +106,13 @@ def runLoopOver(runinfo):
 
 # Call functions
 
+makeDirectory(conf.output_topdir)
+
 # getRunInfoList function will collect information
 # from conf.py, store the data in an object (RunParameterSet),
 # which is defined in conf.py, and eventually return the list of the objects.
 runinfolist = getRunInfoList() 
+
 
 # loop over the list of RunParameterSet.
 for runinfo in runinfolist:

@@ -49,8 +49,8 @@ int main(int argc, char** argv) {
   runid += "-";
   runid += std::to_string(endNEvent);
   cw->SetRunID(runid.Data());
-  cw->RegisterRootFile();
-  //cw->RegisterLcioFile();
+  //cw->RegisterRootFile();
+  cw->RegisterLcioFile();
 
   for (int ev = startNEvent; ev < endNEvent; ev++) {
     cw->RunCain(ev);

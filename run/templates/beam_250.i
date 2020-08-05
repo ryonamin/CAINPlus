@@ -21,7 +21,7 @@ SET an=2.0E10, nb=1312, emx=0.5E-5, emy=3.5E-8;
 SET sz=0.3*mm, bx=13.0*mm, by=0.41*mm,
     e_spread=0.190, p_spread=0.152;
 
-FILE OPEN, UNIT=10, NAME='summary-lumdata.txt';
+!FILE OPEN, UNIT=10, NAME='summary-lumdata.txt';
 
 
 
@@ -114,29 +114,29 @@ SET it=0, nstep=1000;
 !     Time=(-nt*sigz,nt*sigz,nstep);
 PUSH  Time=(-nt*sigz,nt*sigz,nstep);
 
-      IF Mod(it, 100)=0;
-!     plot micron, nm
-         PLOT SCAT, RIGHT, T=Time, KIND=2, COLOR=BLUE, H=S/micron, V=Y/nm,
-         HSCALE=(-3000,3000), VSCALE=(-1000,1000),
-         TITLE='t=' + $FtoA(Time/1e-3, '(F7.2)')+'mm(' + $ItoA(it) +');',
-         HTITLE='s(Mm);  G  ;',
-         VTITLE='y(Mm);',
-         FILE='plot_' + $ItoA(it) + '.tdr';
-
-         PLOT SCAT, LEFT, NONEWPAGE, T=Time, KIND=3, COLOR=RED,
-         FILE='plot_' + $ItoA(it) + '.tdr';
-
-      ENDIF;
-
-      IF Mod(it,100)=0;
-         PRINT $ttl, it, 
-         FORMAT=(' +++ ',A,' +++',F5.0,'-th time step +++');
-         PRINT STAT, SHORT;
-         IF incpair > 0;
-            PRINT STAT, INCP, SHORT;
-            WRITE BEAM, INCP, FILE='in_' + $ItoA(it) + '.dat';
-         ENDIF;
-      ENDIF;
+!      IF Mod(it, 100)=0;
+!!     plot micron, nm
+!         PLOT SCAT, RIGHT, T=Time, KIND=2, COLOR=BLUE, H=S/micron, V=Y/nm,
+!         HSCALE=(-3000,3000), VSCALE=(-1000,1000),
+!         TITLE='t=' + $FtoA(Time/1e-3, '(F7.2)')+'mm(' + $ItoA(it) +');',
+!         HTITLE='s(Mm);  G  ;',
+!         VTITLE='y(Mm);',
+!         FILE='plot_' + $ItoA(it) + '.tdr';
+!
+!         PLOT SCAT, LEFT, NONEWPAGE, T=Time, KIND=3, COLOR=RED,
+!         FILE='plot_' + $ItoA(it) + '.tdr';
+!
+!      ENDIF;
+!
+!      IF Mod(it,100)=0;
+!         PRINT $ttl, it, 
+!         FORMAT=(' +++ ',A,' +++',F5.0,'-th time step +++');
+!         PRINT STAT, SHORT;
+!         IF incpair > 0;
+!            PRINT STAT, INCP, SHORT;
+!            WRITE BEAM, INCP, FILE='in_' + $ItoA(it) + '.dat';
+!         ENDIF;
+!      ENDIF;
       SET it=it+1;
 
 ENDPUSH;
@@ -149,7 +149,7 @@ DRIFT EXTERNAL, LEFT, S=-4.0;
 
 !WRITE BEAM, INCP, LEFT, FILE='in_drift_left.dat';
 
-WRITE BEAM, INCP, FILE='in_drift.dat';
+!WRITE BEAM, INCP, FILE='in_drift.dat';
       
 !     PLOT  HIST, KIND=1, H=En/1E9,    HSCALE=(0,1.000001*ee/1E9,100), VLOG,
 !     TITLE='Beamstrahlung Energy Spectrum;',
@@ -206,12 +206,12 @@ PRINT Lum(3,1),FORMAT=('luminosity_gam e2=',1pd15.8);
 PRINT Lum(1,2),FORMAT=('luminosity_gam e1=',1pd15.8);
 PRINT Lum(1,3),FORMAT=('luminosity_gam e2=',1pd15.8);
 
-WRITE LUMINOSITY,KIND=(2,3),FILE='lum-'+$ttl+'.dat';
+!WRITE LUMINOSITY,KIND=(2,3),FILE='lum-'+$ttl+'.dat';
 
 IF incpair > 0;
    WRITE BEAM, INCP, FILE=$in_pairfile ;
-   WRITE BEAM, FILE=$co_pairfile;
-   WRITE BEAM, SHORT, INCP, FILE="short_incoherent.dat";
+   !WRITE BEAM, FILE=$co_pairfile;
+   !WRITE BEAM, SHORT, INCP, FILE="short_incoherent.dat";
 ENDIF;
 
 CLEAR BEAM;

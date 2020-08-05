@@ -90,7 +90,7 @@ void CainWrapper::WriteEvent(Event& e)
 void CainWrapper::ReadCainOutput(Event& e)
 {
    TString path(_confDir);
-   path += "in_1000.dat";
+   path += "incoherent_pair.dat";
    _fcainot.open(path);
    std::string line;
    
@@ -135,6 +135,8 @@ void CainWrapper::ReadCainOutput(Event& e)
      index++;
    }
    _fcainot.close();
+
+   std::remove(path); // remove the cain output dat file after reading to save the disk space! 
 
    e._nParticles = index;
 
